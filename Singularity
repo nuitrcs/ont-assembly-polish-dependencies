@@ -10,7 +10,8 @@ From: ubuntu:16.04
         (echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections) && \
         apt-get install -y oracle-java8-installer
     cd /opt
-    git clone https://github.com/marbl/canu.git && cd canu/src && make -j && cd -
+    curl -L -O https://github.com/marbl/canu/releases/download/v1.8/canu-1.8.Linux-amd64.tar.xz && \
+        tar -xJf canu-1.8.Linux-amd64.tar.xz && rm canu-1.8.Linux-amd64.tar.xz
     git clone https://github.com/lh3/minimap2 && (cd minimap2 && make) && \
         cp minimap2/minimap2 /usr/local/bin && rm -r minimap2
     git clone https://github.com/lh3/miniasm && (cd miniasm && make) && \
@@ -19,7 +20,7 @@ From: ubuntu:16.04
         cp simNGS/bin/* /usr/local/bin/ && rm -r simNGS
 
 %environment
-    PATH=/opt/canu/Linux-amd64/bin:$PATH
+    PATH=/opt/canu-1.8/Linux-amd64/bin:$PATH
     export PATH
 
 %runscript
